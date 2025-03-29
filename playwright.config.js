@@ -29,7 +29,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
-    baseURL: 'http://localhost:8080/',
+    baseURL: 'http://localhost:5000/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -80,8 +80,8 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
   webServer: {
-    command: 'npm run start',
-    url: 'http://localhost:8080',
+    command: 'npm run start-prod',
+    url: 'http://localhost:5000',
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
