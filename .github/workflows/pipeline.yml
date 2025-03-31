@@ -46,18 +46,21 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: deployment success discord notification
         if: ${{ success() && env.SKIP_DEPLOY == 'false' }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: stegzilla/discord-notify@v2
         with:
-          severity: info
-          details: Pokedex deployment succeeded
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: New version of Pokedex deployed
+          message: |
+            **url:** https://full-stack-open-pokedex-frosty-pine-1702.fly.dev/
       - name: deployment failure discord notification
         if: ${{ failure() && env.SKIP_DEPLOY == 'false' }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: stegzilla/discord-notify@v2
         with:
-          severity: error
-          details: Build failed
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: Build failed
+          message: |
+            **Commit URL:** ${{ github.event.head_commit.url }}
+            **by:** ${{ github.event.pusher.name }}
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
